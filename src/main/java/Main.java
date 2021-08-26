@@ -1,5 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -35,12 +36,12 @@ public class Main {
             student.setCgpa(cgpa);
             studentList.add(i, student);
         }
-//        Collections.sort(studentList, new CgpaComparator());
-//        Collections.sort(studentList, new IdComparator());
-//        Collections.sort(studentList, new NameComparator());
+        Collections.sort(studentList, new CgpaComparator());
+        Collections.sort(studentList, new CgpaNameComparator());
+        Collections.sort(studentList, new NameIdComparator());
 
         for (Student stu : studentList) {
-            System.out.println(stu);
+            System.out.println(stu.getFirstName());
         }
     }
 }
