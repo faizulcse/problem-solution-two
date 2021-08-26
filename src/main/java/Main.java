@@ -16,30 +16,47 @@ public class Main {
          */
         scanner.nextLine();
 
+        String input;
+        String data[];
         List<Student> studentList = new ArrayList();
+
         for (int i = 0; i < size; i++) {
-            String input;
-            String data[];
             input = scanner.nextLine();
             data = input.split("\\s");
 
-            int id;
-            String name;
-            double cgpa;
-            id = Integer.parseInt(data[0].trim().replaceFirst("^0*", ""));
-            name = data[1].trim().toLowerCase();
-            cgpa = Double.parseDouble(new DecimalFormat("#.##").format(Double.parseDouble(data[2].trim())));
-
             Student student = new Student();
-            student.setId(id);
-            student.setFirstName(name);
-            student.setCgpa(cgpa);
+            student.setId(Integer.parseInt(data[0].trim().replaceFirst("^0*", "")));
+            student.setFirstName(data[1].trim().toLowerCase());
+            student.setCgpa(Double.parseDouble(new DecimalFormat("#.##").format(Double.parseDouble(data[2].trim()))));
             studentList.add(i, student);
         }
-        Collections.sort(studentList, new CgpaComparator());
-        Collections.sort(studentList, new CgpaNameComparator());
-        Collections.sort(studentList, new NameIdComparator());
 
+        // Sorting base on CGPA number in decreasing order
+        Collections.sort(studentList, (o1, o2) -> {
+            if (o1.cgpa > o2.cgpa)
+                return -1;
+            if (o1.cgpa < o2.cgpa)
+                return 1;
+            return 0;
+        });
+
+        // Sorting base on firstname using alphabetical order
+        Collections.sort(studentList, (o1, o2) -> {
+            if (o1.cgpa == o2.cgpa)
+                return o1.firstName.compareTo(o2.firstName);
+            else
+                return 0;
+        });
+
+        //Sorting base on their ID
+        Collections.sort(studentList, (o1, o2) -> {
+            if (o1.firstName.compareTo(o2.firstName) == 0)
+                return o1.id - o2.id;
+            else
+                return 0;
+        });
+
+        // Print sorted student list
         for (Student stu : studentList) {
             System.out.println(stu.getFirstName());
         }
