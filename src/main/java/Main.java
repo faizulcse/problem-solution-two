@@ -18,7 +18,7 @@ public class Main {
 
         String input;
         String data[];
-        List<Student> studentList = new ArrayList();
+        List<Student> studentList = new ArrayList<>();
 
         for (int i = 0; i < totalStudent; i++) {
             input = scanner.nextLine();
