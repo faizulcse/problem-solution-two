@@ -7,9 +7,9 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Enter student data: ");
+        System.out.println("Enter total students number: ");
         Scanner scanner = new Scanner(System.in);
-        int size = scanner.nextInt();
+        int totalStudent = scanner.nextInt();
         /*
          * Scanner.nextInt method does not read the newline character.
          * To skip newline character add an optional scanner.nextLine()
@@ -20,7 +20,7 @@ public class Main {
         String data[];
         List<Student> studentList = new ArrayList();
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < totalStudent; i++) {
             input = scanner.nextLine();
             data = input.split("\\s");
 
@@ -58,7 +58,7 @@ public class Main {
 
         // Print sorted student list
         for (Student stu : studentList) {
-            System.out.println(stu.getFirstName());
+            System.out.println(stu.getFirstName().substring(0, 1).toUpperCase() + stu.getFirstName().substring(1));
         }
     }
 }
