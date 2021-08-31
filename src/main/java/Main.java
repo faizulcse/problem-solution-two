@@ -11,7 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         int totalStudent = scanner.nextInt();
         /*
-         * Scanner.nextInt method does not read the newline character.
+         * Scanner.nextInt() method does not read the newline character.
          * To skip newline character add an optional scanner.nextLine()
          */
         scanner.nextLine();
@@ -30,6 +30,7 @@ public class Main {
             student.setCgpa(Double.parseDouble(new DecimalFormat("#.##").format(Double.parseDouble(data[2].trim()))));
             studentList.add(i, student);
         }
+        scanner.close();
 
         // Sorting base on CGPA number in decreasing order
         Collections.sort(studentList, (o1, o2) -> {
