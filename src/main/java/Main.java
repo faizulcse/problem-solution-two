@@ -1,6 +1,6 @@
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,57 +10,36 @@ public class Main {
         System.out.println("Enter total students number: ");
         Scanner scanner = new Scanner(System.in);
         int totalStudent = scanner.nextInt();
-        /*
-         * Scanner.nextInt() method does not read the newline character.
-         * To skip newline character add an optional scanner.nextLine()
-         */
-        scanner.nextLine();
+        scanner.nextLine();     //skip newline character
 
-        String input;
-        String data[];
         List<Student> studentList = new ArrayList<>();
-
         for (int i = 0; i < totalStudent; i++) {
-            input = scanner.nextLine();
-            data = input.split("\\s");
-
             Student student = new Student();
-            student.setId(Integer.parseInt(data[0].trim().replaceFirst("^0*", "")));
-            student.setFirstName(data[1].trim().toLowerCase());
-            student.setCgpa(Double.parseDouble(new DecimalFormat("#.##").format(Double.parseDouble(data[2].trim()))));
+            String info = scanner.nextLine();
+            String data[] = info.split("\\s+");
+
+            student.setId(Integer.parseInt(data[0].replaceFirst("^0+", "").trim()));
+            student.setFirstName(data[1].toLowerCase().trim());
+            student.setCgpa(Double.parseDouble(new DecimalFormat(".##").format(Double.parseDouble(data[2].trim()))));
             studentList.add(i, student);
         }
         scanner.close();
 
-        // Sorting base on CGPA number in decreasing order
-        Collections.sort(studentList, (o1, o2) -> {
-            if (o1.cgpa > o2.cgpa)
-                return -1;
-            if (o1.cgpa < o2.cgpa)
-                return 1;
-            return 0;
-        });
+        // Sorted CGPA in decreasing order
+        studentList.sort(Comparator.comparingDouble(Student::getCgpa).reversed());
 
-        // Sorting base on firstname using alphabetical order
-        Collections.sort(studentList, (o1, o2) -> {
-            if (o1.cgpa == o2.cgpa)
-                return o1.firstName.compareTo(o2.firstName);
-            else
-                return 0;
-        });
+        // Sorted first name in alphabetical order
+        studentList.sort((o1, o2) ->
+                o1.getCgpa() == o2.getCgpa() ? o1.getFirstName().compareTo(o2.getFirstName()) : 0);
 
-        //Sorting base on their ID
-        Collections.sort(studentList, (o1, o2) -> {
-            if (o1.firstName.compareTo(o2.firstName) == 0)
-                return o1.id - o2.id;
-            else
-                return 0;
-        });
+        // Sorted id in ascending order
+        studentList.sort((o1, o2) ->
+                o1.getFirstName().compareTo(o2.getFirstName()) == 0 ? o1.getId() - o2.getId() : 0);
 
-        // Print sorted student list
-        for (Student stu : studentList) {
-            System.out.println(stu.getFirstName().substring(0, 1).toUpperCase() + stu.getFirstName().substring(1));
-        }
+        studentList.forEach(stu -> {
+            char first = stu.getFirstName().charAt(0);
+            System.out.println(stu.getFirstName().replace(first, Character.toUpperCase(first)));
+        });
     }
 }
 

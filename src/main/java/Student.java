@@ -1,7 +1,7 @@
 public class Student {
-    int id;
-    String firstName;
-    double cgpa;
+    private int id;
+    private String firstName;
+    private double cgpa;
 
     public int getId() {
         return id;
