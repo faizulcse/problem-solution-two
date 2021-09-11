@@ -34,7 +34,7 @@ public class Main {
 
         // Sorted id in ascending order
         studentList.sort((o1, o2) ->
-                o1.getFirstName().compareTo(o2.getFirstName()) == 0 ? o1.getId() - o2.getId() : 0);
+                o1.getFirstName().equals(o2.getFirstName()) ? o1.getId() - o2.getId() : 0);
 
         studentList.forEach(stu -> {
             char first = stu.getFirstName().charAt(0);
