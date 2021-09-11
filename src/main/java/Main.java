@@ -30,7 +30,7 @@ public class Main {
                 .sorted(Comparator.comparingDouble(Student::getCgpa).reversed())                                // Sorted by cgpa
                 .sorted((o1, o2) -> o1.getCgpa() == o2.getCgpa() ? o1.getfName().compareTo(o2.getfName()) : 0)  // Sorted by first name
                 .sorted((o1, o2) -> o1.getfName().equals(o2.getfName()) ? o1.getId() - o2.getId() : 0)          // Sorted by id
-                .collect(Collectors.toList())                                                                   // print sorted student info
+                .collect(Collectors.toList())
                 .forEach(stu -> {
                     char first = stu.getfName().charAt(0);
                     System.out.println(stu.getfName().replace(first, Character.toUpperCase(first)));
