@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -19,27 +20,21 @@ public class Main {
             String data[] = info.split("\\s+");
 
             student.setId(Integer.parseInt(data[0].replaceFirst("^0+", "").trim()));
-            student.setFirstName(data[1].toLowerCase().trim());
+            student.setfName(data[1].toLowerCase().trim());
             student.setCgpa(Double.parseDouble(new DecimalFormat(".##").format(Double.parseDouble(data[2].trim()))));
             studentList.add(i, student);
         }
         scanner.close();
 
-        // Sorted CGPA in decreasing order
-        studentList.sort(Comparator.comparingDouble(Student::getCgpa).reversed());
-
-        // Sorted first name in alphabetical order
-        studentList.sort((o1, o2) ->
-                o1.getCgpa() == o2.getCgpa() ? o1.getFirstName().compareTo(o2.getFirstName()) : 0);
-
-        // Sorted id in ascending order
-        studentList.sort((o1, o2) ->
-                o1.getFirstName().equals(o2.getFirstName()) ? o1.getId() - o2.getId() : 0);
-
-        studentList.forEach(stu -> {
-            char first = stu.getFirstName().charAt(0);
-            System.out.println(stu.getFirstName().replace(first, Character.toUpperCase(first)));
-        });
+        studentList.stream()
+                .sorted(Comparator.comparingDouble(Student::getCgpa).reversed())                                // Sorted by cgpa
+                .sorted((o1, o2) -> o1.getCgpa() == o2.getCgpa() ? o1.getfName().compareTo(o2.getfName()) : 0)  // Sorted by first name
+                .sorted((o1, o2) -> o1.getfName().equals(o2.getfName()) ? o1.getId() - o2.getId() : 0)          // Sorted by id
+                .collect(Collectors.toList())                                                                   // print sorted student info
+                .forEach(stu -> {
+                    char first = stu.getfName().charAt(0);
+                    System.out.println(stu.getfName().replace(first, Character.toUpperCase(first)));
+                });
     }
 }
 

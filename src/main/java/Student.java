@@ -1,6 +1,6 @@
 public class Student {
     private int id;
-    private String firstName;
+    private String fName;
     private double cgpa;
 
     public int getId() {
@@ -11,12 +11,12 @@ public class Student {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getfName() {
+        return fName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
     public double getCgpa() {
@@ -25,14 +25,5 @@ public class Student {
 
     public void setCgpa(double cgpa) {
         this.cgpa = cgpa;
-    }
-
-    @Override
-    public String toString() {
-        return "Student{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", cgpa=" + cgpa +
-                '}';
     }
 }
